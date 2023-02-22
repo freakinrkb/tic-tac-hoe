@@ -33,7 +33,7 @@ function startNewGameBtn() {
         return;
     }
 
-    reset();
+//     reset();
     activePlayerNameElement.textContent = players[gamePlayerData.activePlayer].name;
     gameAreaElement.style.display = 'block';
 }
