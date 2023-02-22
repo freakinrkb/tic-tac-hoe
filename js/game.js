@@ -1,13 +1,3 @@
-// import {
-//     gameData,
-//     players,
-//     gamePlayerData,
-//     gameOverElement,
-//     gameBoardElement,
-//     gameAreaElement,
-//     activePlayerNameElement
-// } from "./tictac.js";
-
 function reset() {
     gamePlayerData.activePlayer = 0;
     gamePlayerData.currentRound = 1;
@@ -19,25 +9,27 @@ function reset() {
     let gameBoardindex = 0;
     for (let i = 0; i < 3; ++i) {
         for (let j = 0; j < 3; ++j) {
+
             gameData[i][j] = 0;
-            const gameboarditemelement = gameboardelement.children[gameBoardindex];
+            const gameboarditemelement = gameBoardElement.children[gameBoardindex];
             gameBoardElement.children[gameBoardindex].textContent = '';
             gameboarditemelement.classList.remove('disabled');
-            Boardindex++;
+            console.log(gameboarditemelement.classList);
+            gameBoardindex++;
         }
     }
 }
+
 function startNewGameBtn() {
     if (players[0].name === '' || players[1].name === '') {
         alert('Please set player names for both players!');
         return;
     }
-
-//     reset();
+    if (gamePlayerData.gameisover) reset();
     activePlayerNameElement.textContent = players[gamePlayerData.activePlayer].name;
     gameAreaElement.style.display = 'block';
 }
- function switchplayer() {
+function switchplayer() {
     if (gamePlayerData.activePlayer === 0) {
         gamePlayerData.activePlayer = 1;
     }
@@ -54,19 +46,16 @@ function selectGameField(event) {
     const selectedColumn = +event.target.dataset.col;
     const selectedRow = +event.target.dataset.row;
     // console.log(selectedRow, selectedColumn)
-    
+
     if (gameData[selectedRow][selectedColumn] > 0) {
         alert('Select empty cell stupid!')
         return;
     }
-    
+
     event.target.textContent = players[gamePlayerData.activePlayer].symbol;
     event.target.classList.add('disabled');
-    
-    
-    
+
     gameData[selectedRow][selectedColumn] = gamePlayerData.activePlayer + 1;
-    console.log(gameData[selectedRow][selectedColumn]);
 
     const winnerId = checkForGameOver();
 
@@ -136,6 +125,7 @@ function checkForGameOver() {
     }
     return 0;
 }
+
 function endGame(winnerId) {
     gamePlayerData.gameisover = true;
     gameOverElement.style.display = 'block';
